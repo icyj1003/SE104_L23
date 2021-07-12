@@ -1,6 +1,6 @@
 # Exbook
 
-A Book management and exchange software, created by using Flutter
+A Book management and exchange software, created by using Flutter.
 
 ## Acknowledgment
 
