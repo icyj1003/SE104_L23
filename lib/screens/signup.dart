@@ -43,6 +43,10 @@ class _SignupState extends State<Signup> {
     super.initState();
   }
 
+  _sackBar(String content) {
+    return SnackBar(content: Text(content));
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -307,7 +311,9 @@ class _SignupState extends State<Signup> {
                                   avatar: defaultAvatar);
                               newUser.setId(_inputUserName);
                               addUser(newUser);
-                              Navigator.pushNamed(context, '/signin');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  _sackBar('Đăng ký thành công!'));
+                              Navigator.pop(context);
                               _controllerEmail.clear();
                               _controllerPassword.clear();
                               _controllerPasswordRepeat.clear();

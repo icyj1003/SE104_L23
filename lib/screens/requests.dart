@@ -151,10 +151,12 @@ class _NotiState extends State<Noti> {
                                           a.setId(res[index].bookId);
                                           for (Request re in res) {
                                             if (re.bookId ==
-                                                res[index].bookId) {
-                                              Request re = res[index];
-                                              re.changeStatus(2);
-                                              updateRequest(re);
+                                                    res[index].bookId &&
+                                                re.id != res[index].id) {
+                                              Request newRe = re;
+
+                                              newRe.changeStatus(2);
+                                              updateRequest(newRe);
                                             }
                                           }
                                           Request re = res[index];
