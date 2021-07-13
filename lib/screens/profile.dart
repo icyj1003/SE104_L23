@@ -5,6 +5,7 @@ Description: Màn hình hiển thị thông tin người dùng
 Notes: 
 */
 
+import 'package:exchange/classes/request.dart';
 import 'package:exchange/components/booklist.dart';
 import 'package:exchange/constants.dart';
 import 'package:exchange/database.dart';
@@ -13,6 +14,7 @@ import 'package:exchange/screens/add_book.dart';
 import 'package:exchange/screens/profile_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import '../classes/book.dart';
 import '../classes/user.dart';
 import 'profile_edit.dart';
@@ -38,9 +40,22 @@ class _ProfileState extends State<Profile> {
         }));
   }
 
+  List<Request> res = [];
+  void updateMyRequest() {
+    getAllRequest(widget.userId).then((value) => this.setState(() {
+          res = value;
+        }));
+    Future.delayed(
+        Duration(
+          seconds: 1,
+        ), () {
+      setState(() {});
+    });
+  }
+
   void updateBooks() {
     myBooks = [];
-    myFavorites = [];
+    myFavorites = []; 
     getFavorites(widget.userId).then((favors) => this.setState(() {
           for (Favorite favor in favors) {
             if (favor.userId == widget.userId) {
@@ -50,7 +65,7 @@ class _ProfileState extends State<Profile> {
         }));
     getAllBooks().then((books) => this.setState(() {
           for (Book book in books) {
-            if (book.owner == widget.id) myBooks.add(book);
+            if (book.owner == widget.id && book.status != 2) myBooks.add(book);
           }
         }));
   }
@@ -59,6 +74,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
+    updateMyRequest();
     updateUser();
     updateBooks();
     super.initState();
@@ -295,6 +311,7 @@ class _ProfileState extends State<Profile> {
                               books: myBooks,
                               width: width,
                               height: height,
+                              res: res,
                               userId: widget.userId),
                           makeTitle('Sách đã thích', null, null),
                           BookListWidget(

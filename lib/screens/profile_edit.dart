@@ -121,6 +121,9 @@ class _EditProfileState extends State<EditProfile> {
                     TextFormField(
                       obscureText: false,
                       validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Họ tên không được bỏ trống';
+                        }
                         return null;
                       },
                       controller: _controllerName,
@@ -254,6 +257,7 @@ class _EditProfileState extends State<EditProfile> {
                         else
                           return null;
                       },
+                      keyboardType: TextInputType.number,
                       controller: _controllerPhone,
                       onChanged: (value) => setState(() => oldPhone = value),
                       decoration: InputDecoration(
@@ -390,6 +394,7 @@ class _EditProfileState extends State<EditProfile> {
                                       updateUser(user);
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(snackBar);
+                                      Navigator.pop(context);
                                     }
                                   },
                                   child: Text(

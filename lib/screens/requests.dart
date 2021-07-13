@@ -146,30 +146,96 @@ class _NotiState extends State<Noti> {
                                 ? [
                                     TextButton(
                                         onPressed: () {
-                                          Book a = res[index].book;
-                                          a.changeStatus();
-                                          a.setId(res[index].bookId);
-                                          for (Request re in res) {
-                                            if (re.bookId ==
-                                                    res[index].bookId &&
-                                                re.id != res[index].id) {
-                                              Request newRe = re;
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                    title: const Text(
+                                                        'Đồng ý yêu cầu trao đổi'),
+                                                    content: Text(
+                                                        'Bạn đồng ý cho ${res[index].user.getName()} mượn ${res[index].book.title}?'),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                                  _snackBar(
+                                                                      'Đã huỷ'));
+                                                        },
+                                                        child: Text(
+                                                          'Huỷ bỏ',
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .red),
+                                                        ),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Book a =
+                                                              res[index].book;
+                                                          a.changeStatus();
+                                                          a.setId(res[index]
+                                                              .bookId);
+                                                          for (Request re
+                                                              in res) {
+                                                            if (re.bookId ==
+                                                                    res[index]
+                                                                        .bookId &&
+                                                                re.id !=
+                                                                    res[index]
+                                                                        .id) {
+                                                              Request newRe =
+                                                                  re;
 
-                                              newRe.changeStatus(2);
-                                              updateRequest(newRe);
-                                            }
-                                          }
-                                          Request re = res[index];
-                                          re.changeStatus(1);
-                                          Exchange ex = Exchange(
-                                              requestId: re.id,
-                                              from: DateFormat('dd/MM/yyyy')
-                                                  .format(DateTime.now()),
-                                              to: "");
-                                          addExchange(ex);
-                                          updateRequest(re);
-                                          updateBook(a);
-                                          updateMyRequest();
+                                                              newRe
+                                                                  .changeStatus(
+                                                                      2);
+                                                              updateRequest(
+                                                                  newRe);
+                                                            }
+                                                          }
+                                                          Request re =
+                                                              res[index];
+                                                          re.changeStatus(1);
+                                                          Exchange ex = Exchange(
+                                                              requestId: re.id,
+                                                              from: DateFormat(
+                                                                      'dd/MM/yyyy')
+                                                                  .format(DateTime
+                                                                      .now()),
+                                                              to: "");
+                                                          addExchange(ex);
+                                                          updateRequest(re);
+                                                          updateBook(a);
+                                                          updateMyRequest();
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                                  _snackBar(
+                                                                      'Đã đồng ý yêu cầu'));
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Text(
+                                                          'Đồng ý',
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .green),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ));
                                         },
                                         child: Text(
                                           'Đồng ý',
@@ -177,9 +243,71 @@ class _NotiState extends State<Noti> {
                                         )),
                                     TextButton(
                                         onPressed: () {
-                                          Request re = res[index];
-                                          re.changeStatus(2);
-                                          updateMyRequest();
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                    title: const Text(
+                                                        'Từ chối yêu cầu'),
+                                                    content: Text(
+                                                        'Bạn từ chối cho ${res[index].user.getName()} mượn ${res[index].book.title}?'),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                                  _snackBar(
+                                                                      'Đã huỷ'));
+                                                        },
+                                                        child: Text(
+                                                          'Huỷ bỏ',
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .red),
+                                                        ),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Request re =
+                                                              res[index];
+                                                          re.changeStatus(2);
+                                                          updateRequest(re);
+                                                          updateMyRequest();
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                                  _snackBar(
+                                                                      'Đã từ chối'));
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Text(
+                                                          'Từ chối',
+                                                          style: GoogleFonts
+                                                              .roboto(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .green),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ));
+                                          // Request re = res[index];
+                                          // re.changeStatus(2);
+                                          // updateRequest(re);
+                                          // updateMyRequest();
+                                          // ScaffoldMessenger.of(context)
+                                          //     .showSnackBar(
+                                          //         _snackBar('Đã từ chối'));
                                         },
                                         child: Text(
                                           'Từ chối',

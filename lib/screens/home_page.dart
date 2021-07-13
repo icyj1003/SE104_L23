@@ -487,7 +487,8 @@ class Searching extends SearchDelegate {
       suggestions.addAll(books.where((element) =>
           TiengViet.parse(unorm.nfc(element.title.toLowerCase()))
               .contains(TiengViet.parse(unorm.nfc(query.toLowerCase()))) &&
-          element.owner != userId));
+          element.owner != userId &&
+          element.status != 2));
     } else
       suggestions = [];
     return ListView.builder(

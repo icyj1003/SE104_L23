@@ -25,6 +25,7 @@ class AddBook extends StatefulWidget {
 }
 
 class _AddBookState extends State<AddBook> {
+  final _formKey = GlobalKey<FormState>();
   String oldTitle;
   int oldnpages;
   String oldAuthor;
@@ -73,6 +74,7 @@ class _AddBookState extends State<AddBook> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(children: [
                 Form(
+                  key: _formKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(children: [
                     Row(
@@ -323,32 +325,37 @@ class _AddBookState extends State<AddBook> {
                               child: TextButton(
                                   onPressed: () {
                                     FocusScope.of(context).unfocus();
-                                    print('Tạo id');
-                                    print("Title: $oldTitle");
-                                    print(oldAuthor);
-                                    print(oldnpages);
-                                    print(oldCond + 1);
-                                    print(oldCategory);
-                                    print(oldDescription);
-                                    print(oldUrl);
-                                    Book editedBook = Book(
-                                        author: oldAuthor,
-                                        title: oldTitle,
-                                        npages: oldnpages,
-                                        condition: oldCond + 1,
-                                        category: oldCategory,
-                                        description: oldDescription.isEmpty
-                                            ? 'Không có mô tả'
-                                            : oldDescription,
-                                        url: oldUrl,
-                                        status: 0,
-                                        owner: widget.userId,
-                                        date: DateFormat('dd/MM/yyyy')
-                                            .format(DateTime.now()));
-                                    addBook(editedBook);
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                    Navigator.pop(context);
+                                    final isValid =
+                                        _formKey.currentState.validate();
+                                    if (isValid) {
+                                      _formKey.currentState.save();
+                                      print('Tạo id');
+                                      print("Title: $oldTitle");
+                                      print(oldAuthor);
+                                      print(oldnpages);
+                                      print(oldCond + 1);
+                                      print(oldCategory);
+                                      print(oldDescription);
+                                      print(oldUrl);
+                                      Book editedBook = Book(
+                                          author: oldAuthor,
+                                          title: oldTitle,
+                                          npages: oldnpages,
+                                          condition: oldCond + 1,
+                                          category: oldCategory,
+                                          description: oldDescription.isEmpty
+                                              ? 'Không có mô tả'
+                                              : oldDescription,
+                                          url: oldUrl,
+                                          status: 0,
+                                          owner: widget.userId,
+                                          date: DateFormat('dd/MM/yyyy')
+                                              .format(DateTime.now()));
+                                      addBook(editedBook);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                      Navigator.pop(context);
+                                    }
                                   },
                                   child: Text(
                                     'LƯU',

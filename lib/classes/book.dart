@@ -33,6 +33,10 @@ class Book {
     this.id = id;
   }
 
+  void setStatus(int id) {
+    this.status = id;
+  }
+
   Book.fromJson(Map<String, dynamic> json) {
     author = json['author'];
     category = json['category'];

@@ -120,6 +120,7 @@ class _MyRequestState extends State<MyRequest> {
                               ),
                               GestureDetector(
                                 onTap: () {
+                                  res[index].book.setId(res[index].bookId);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -145,13 +146,54 @@ class _MyRequestState extends State<MyRequest> {
                               if (res[index].status == 0)
                                 TextButton(
                                     onPressed: () {
-                                      Request re = res[index];
-                                      re.changeStatus(2);
-                                      updateRequest(re);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(_snackBar(
-                                              'Đã huỷ yêu cầu trao đổi!'));
-                                      updateMyRequest();
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              AlertDialog(
+                                                title:
+                                                    const Text('Huỷ yêu cầu'),
+                                                content: Text(
+                                                    'Bạn muốn huỷ yêu cầu trao đổi?'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              _snackBar(
+                                                                  'Đã huỷ'));
+                                                    },
+                                                    child: Text(
+                                                      'Huỷ bỏ',
+                                                      style: GoogleFonts.roboto(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.red),
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Request re = res[index];
+                                                      re.changeStatus(2);
+                                                      updateRequest(re);
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(_snackBar(
+                                                              'Đã huỷ yêu cầu trao đổi!'));
+                                                      updateMyRequest();
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text(
+                                                      'Đồng ý',
+                                                      style: GoogleFonts.roboto(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.green),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ));
                                     },
                                     child: SizedBox(
                                       width: 50,

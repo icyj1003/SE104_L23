@@ -113,7 +113,7 @@ class _DetailState extends State<Detail> {
                             height: 20,
                           ),
                           Container(
-                            width: 75,
+                            width: 85,
                             height: 29,
                             decoration: BoxDecoration(
                                 color: Colors.white,
@@ -358,7 +358,7 @@ class _DetailState extends State<Detail> {
         ScaffoldMessenger.of(context)
             .showSnackBar(_snackbar('Sách không có sẵn!'));
       },
-      child: Text('Exchanged',
+      child: Text('Unavailable',
           style: TextStyle(
               fontSize: 12, color: Colors.red, fontWeight: FontWeight.w500)),
     );

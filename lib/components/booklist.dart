@@ -5,6 +5,7 @@ Description: Định nghĩa Widget BookList
 Notes: 
 */
 
+import 'package:exchange/classes/request.dart';
 import 'package:exchange/constants.dart';
 import 'package:flutter/material.dart';
 import '../classes/book.dart';
@@ -16,6 +17,7 @@ class BookListWidget extends StatelessWidget {
   final bool renderUser;
   final List<Book> books;
   final String userId;
+  final List<Request> res;
   final Function() refresh;
   const BookListWidget({
     Key key,
@@ -25,6 +27,7 @@ class BookListWidget extends StatelessWidget {
     @required this.width,
     @required this.height,
     @required this.userId,
+    this.res,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,7 @@ class BookListWidget extends StatelessWidget {
                   width: width * book_width_ratio,
                   height: height * book_height_ratio,
                   index: index,
+                  res: res,
                   book: books[index]),
             )),
       );
