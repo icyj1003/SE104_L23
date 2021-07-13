@@ -275,7 +275,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               makeTitle('Văn học nghệ thuật', null, null),
               BookListWidget(
                 renderUser: true,
@@ -285,7 +285,7 @@ class _HomePageState extends State<HomePage> {
                 height: height,
                 userId: myProfile.id,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               makeTitle('Khoa học công nghệ – Kinh tế', null, null),
               BookListWidget(
                 renderUser: true,
@@ -295,7 +295,7 @@ class _HomePageState extends State<HomePage> {
                 height: height,
                 userId: myProfile.id,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               makeTitle('Truyện, Tiểu thuyết', null, null),
               BookListWidget(
                 renderUser: true,
@@ -305,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                 height: height,
                 userId: myProfile.id,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               makeTitle('Chính trị - Pháp luật', null, null),
               BookListWidget(
                 renderUser: true,
@@ -315,7 +315,7 @@ class _HomePageState extends State<HomePage> {
                 height: height,
                 userId: myProfile.id,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               makeTitle('Giáo trình', null, null),
               BookListWidget(
                 renderUser: true,
@@ -325,7 +325,7 @@ class _HomePageState extends State<HomePage> {
                 height: height,
                 userId: myProfile.id,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               makeTitle('Văn hóa xã hội – Lịch sử', null, null),
               BookListWidget(
                 renderUser: true,
@@ -335,7 +335,7 @@ class _HomePageState extends State<HomePage> {
                 height: height,
                 userId: myProfile.id,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               makeTitle('Tâm lý, tâm linh, tôn giáo', null, null),
               BookListWidget(
                 renderUser: true,
@@ -345,7 +345,7 @@ class _HomePageState extends State<HomePage> {
                 height: height,
                 userId: myProfile.id,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               makeTitle('Thiếu nhi', null, null),
               BookListWidget(
                 renderUser: true,

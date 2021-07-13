@@ -40,7 +40,8 @@ class _DetailState extends State<Detail> {
     super.initState();
   }
 
-  _snackbar(String content) => SnackBar(content: Text(content));
+  _snackbar(String content) =>
+      SnackBar(duration: Duration(seconds: 1), content: Text(content));
 
   @override
   Widget build(BuildContext context) {

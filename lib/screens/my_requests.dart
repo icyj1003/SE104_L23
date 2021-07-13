@@ -47,7 +47,7 @@ class _MyRequestState extends State<MyRequest> {
     super.initState();
   }
 
-  _snackBar(String content) => SnackBar(content: Text(content));
+  _snackBar(String content) => SnackBar(duration: Duration(seconds: 1), content: Text(content));
 
   @override
   Widget build(BuildContext context) {

@@ -55,7 +55,7 @@ class _ProfileState extends State<Profile> {
 
   void updateBooks() {
     myBooks = [];
-    myFavorites = []; 
+    myFavorites = [];
     getFavorites(widget.userId).then((favors) => this.setState(() {
           for (Favorite favor in favors) {
             if (favor.userId == widget.userId) {
@@ -313,6 +313,9 @@ class _ProfileState extends State<Profile> {
                               height: height,
                               res: res,
                               userId: widget.userId),
+                          SizedBox(
+                            height: 30,
+                          ),
                           makeTitle('Sách đã thích', null, null),
                           BookListWidget(
                               renderUser: true,
@@ -320,7 +323,10 @@ class _ProfileState extends State<Profile> {
                               width: width,
                               books: myFavorites,
                               height: height,
-                              userId: widget.userId)
+                              userId: widget.userId),
+                          SizedBox(
+                            height: 30,
+                          )
                         ],
                       )
                     : Column(
@@ -334,6 +340,9 @@ class _ProfileState extends State<Profile> {
                               books: myBooks,
                               height: height,
                               userId: widget.userId),
+                          SizedBox(
+                            height: 30,
+                          )
                         ],
                       ),
               ],
@@ -391,9 +400,7 @@ class _ProfileState extends State<Profile> {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.openSans(color: Colors.white, fontSize: 15)),
-          Text(content,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
+          SelectableText(content,
               style: GoogleFonts.openSans(
                   color: Colors.white,
                   fontSize: 15,

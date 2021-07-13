@@ -44,7 +44,7 @@ class _SignupState extends State<Signup> {
   }
 
   _sackBar(String content) {
-    return SnackBar(content: Text(content));
+    return SnackBar(duration: Duration(seconds: 1), content: Text(content));
   }
 
   @override
@@ -323,6 +323,8 @@ class _SignupState extends State<Signup> {
                                 _valid = AutovalidateMode.onUserInteraction;
                               });
                             } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  _sackBar('Vui lòng nhập thông tin đúng định dạng!'));
                               setState(() {
                                 _valid = AutovalidateMode.onUserInteraction;
                               });

@@ -48,7 +48,8 @@ class _NotiState extends State<Noti> {
     super.initState();
   }
 
-  _snackBar(String content) => SnackBar(content: Text(content));
+  _snackBar(String content) =>
+      SnackBar(duration: Duration(seconds: 1), content: Text(content));
 
   @override
   Widget build(BuildContext context) {

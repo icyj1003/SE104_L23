@@ -50,7 +50,8 @@ class _AddBookState extends State<AddBook> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final snackBar = SnackBar(content: Text('Đã thêm thành công'));
+    final snackBar = SnackBar(
+        duration: Duration(seconds: 1), content: Text('Đã thêm thành công'));
     return Scaffold(
         extendBodyBehindAppBar: false,
         backgroundColor: Colors.white,

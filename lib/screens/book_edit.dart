@@ -23,6 +23,7 @@ class EditBook extends StatefulWidget {
 }
 
 class _EditBookState extends State<EditBook> {
+  final _formKey = GlobalKey<FormState>();
   String oldTitle;
   int oldnpages;
   String oldAuthor;
@@ -47,7 +48,7 @@ class _EditBookState extends State<EditBook> {
     oldDescription = widget.book.description;
     oldUrl = widget.book.url;
     oldCond = widget.book.condition - 1;
-    tempUrl = oldUrl;
+    tempUrl = oldUrl.isEmpty ? defaultCover : oldUrl;
     _controllerTitle = TextEditingController(text: oldTitle);
     _controllerAuthor = TextEditingController(text: oldAuthor);
     _controllernpages = TextEditingController(text: '$oldnpages');
@@ -59,7 +60,8 @@ class _EditBookState extends State<EditBook> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final snackBar = SnackBar(content: Text('Đã lưu thay đổi'));
+    final snackBar = SnackBar(
+        duration: Duration(seconds: 1), content: Text('Đã lưu thay đổi'));
     return Scaffold(
         extendBodyBehindAppBar: false,
         backgroundColor: Colors.white,
@@ -83,6 +85,7 @@ class _EditBookState extends State<EditBook> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(children: [
                 Form(
+                  key: _formKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(children: [
                     Row(
@@ -103,9 +106,13 @@ class _EditBookState extends State<EditBook> {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(16.0),
                                 child: Image.network(
-                                  tempUrl,
-                                  fit: BoxFit.cover,
-                                ))),
+                                      tempUrl,
+                                      fit: BoxFit.cover,
+                                    ) ??
+                                    Image.network(
+                                      defaultAvatar,
+                                      fit: BoxFit.cover,
+                                    ))),
                         SizedBox(
                           width: 20,
                         ),
@@ -117,6 +124,12 @@ class _EditBookState extends State<EditBook> {
                               width: width - 130 - 20 * 3,
                               child: TextFormField(
                                 obscureText: false,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Tiêu đề không được bỏ trống';
+                                  } else
+                                    return null;
+                                },
                                 controller: _controllerTitle,
                                 onChanged: (value) =>
                                     setState(() => oldTitle = value),
@@ -137,6 +150,12 @@ class _EditBookState extends State<EditBook> {
                               width: width - 130 - 20 * 3,
                               child: TextFormField(
                                 obscureText: false,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Tên tác giả không được bỏ trống';
+                                  } else
+                                    return null;
+                                },
                                 controller: _controllerAuthor,
                                 onChanged: (value) =>
                                     setState(() => oldAuthor = value),
@@ -157,6 +176,13 @@ class _EditBookState extends State<EditBook> {
                               width: width - 130 - 20 * 3,
                               child: TextFormField(
                                 obscureText: false,
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Vui lòng nhập vào số trang';
+                                  } else
+                                    return null;
+                                },
                                 controller: _controllernpages,
                                 onChanged: (value) => setState(
                                     () => oldnpages = int.parse(value)),
@@ -319,30 +345,27 @@ class _EditBookState extends State<EditBook> {
                               child: TextButton(
                                   onPressed: () {
                                     FocusScope.of(context).unfocus();
-                                    print(
-                                        'Chỉnh sửa sách có id: ${widget.book.id}');
-                                    print(oldTitle);
-                                    print(oldAuthor);
-                                    print(oldnpages);
-                                    print(oldCond + 1);
-                                    print(oldCategory);
-                                    print(oldDescription);
-                                    print(oldUrl);
-                                    Book editedBook = Book(
-                                        author: oldAuthor,
-                                        title: oldTitle,
-                                        npages: oldnpages,
-                                        condition: oldCond + 1,
-                                        category: oldCategory,
-                                        description: oldDescription,
-                                        url: oldUrl,
-                                        status: widget.book.status,
-                                        owner: widget.book.owner,
-                                        date: widget.book.date);
-                                    editedBook.setId(widget.book.id);
-                                    updateBook(editedBook);
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
+                                    final isValid =
+                                        _formKey.currentState.validate();
+                                    if (isValid) {
+                                      _formKey.currentState.save();
+                                      Book editedBook = Book(
+                                          author: oldAuthor,
+                                          title: oldTitle,
+                                          npages: oldnpages,
+                                          condition: oldCond + 1,
+                                          category: oldCategory,
+                                          description: oldDescription,
+                                          url: oldUrl,
+                                          status: widget.book.status,
+                                          owner: widget.book.owner,
+                                          date: widget.book.date);
+                                      editedBook.setId(widget.book.id);
+                                      updateBook(editedBook);
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
                                   },
                                   child: Text(
                                     'LƯU',

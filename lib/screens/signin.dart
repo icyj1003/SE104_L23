@@ -65,10 +65,11 @@ class _SigninState extends State<Signin> {
               child: Form(
                 autovalidateMode: _valid,
                 key: _formKey,
-                child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                    children: [
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: SingleChildScrollView(
+                    child: Column(children: [
                       TextFormField(
                         validator: (value) {
                           if (value.length > maxUserNameLength ||
@@ -141,7 +142,15 @@ class _SigninState extends State<Signin> {
                               setState(() {
                                 _valid = AutovalidateMode.onUserInteraction;
                               });
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  content: Text(
+                                      'Đăng nhập thành công tài khoản ${myProfile.id}')));
                             } else {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  content: Text(
+                                      'Tên đăng nhập hoặc mật khẩu không hợp lệ!')));
                               setState(() {
                                 _valid = AutovalidateMode.onUserInteraction;
                               });
@@ -176,6 +185,8 @@ class _SigninState extends State<Signin> {
                         height: MediaQuery.of(context).viewInsets.bottom,
                       ),
                     ]),
+                  ),
+                ),
               ))
         ],
       )),

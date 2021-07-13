@@ -70,7 +70,8 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final snackBar = SnackBar(content: Text('Đã lưu thay đổi'));
+    final snackBar = SnackBar(
+        duration: Duration(seconds: 1), content: Text('Đã lưu thay đổi'));
     return Scaffold(
         extendBodyBehindAppBar: false,
         backgroundColor: Colors.white,
