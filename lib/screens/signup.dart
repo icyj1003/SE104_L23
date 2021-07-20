@@ -169,7 +169,7 @@ class _SignupState extends State<Signup> {
                                     context: context,
                                     initialDate: _dob,
                                     firstDate: DateTime(1960),
-                                    lastDate: DateTime(2025),
+                                    lastDate: DateTime.now(),
                                     builder:
                                         (BuildContext context, Widget child) {
                                       return Theme(
@@ -323,8 +323,8 @@ class _SignupState extends State<Signup> {
                                 _valid = AutovalidateMode.onUserInteraction;
                               });
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  _sackBar('Vui lòng nhập thông tin đúng định dạng!'));
+                              ScaffoldMessenger.of(context).showSnackBar(_sackBar(
+                                  'Vui lòng nhập thông tin đúng định dạng!'));
                               setState(() {
                                 _valid = AutovalidateMode.onUserInteraction;
                               });

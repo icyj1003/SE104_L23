@@ -220,7 +220,7 @@ class _EditProfileState extends State<EditProfile> {
                               context: context,
                               initialDate: oldDob,
                               firstDate: DateTime(1960),
-                              lastDate: DateTime(2025),
+                              lastDate: DateTime.now(),
                               builder: (BuildContext context, Widget child) {
                                 return Theme(
                                   data: ThemeData.light().copyWith(
